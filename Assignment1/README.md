@@ -1,6 +1,6 @@
 ---
 
-# **📚 Fully Connected Neural Network (FCNN) 
+# 📚 Fully Connected Neural Network (FCNN) 
 
 ---
 
