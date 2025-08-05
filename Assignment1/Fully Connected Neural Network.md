@@ -1,96 +1,85 @@
 
----
-
-# 📚 **Fully Connected Neural Network (FCNN) **
+# 🧠 Fully Connected Neural Network (FCNN)
 
 ---
 
-## 1️⃣ **What is a Fully Connected Neural Network (FCNN)?**
+## 📌 1. What is a Fully Connected Neural Network (FCNN)?
 
 A **Fully Connected Neural Network** (also called a **Dense Neural Network**) is a type of artificial neural network where:
 
-* Every neuron in one layer is connected to **every neuron in the next layer**.
-* Each connection has a **weight** that determines the strength of the signal.
-* Each neuron has a **bias** that shifts the activation function output.
-* An **activation function** is applied to introduce non-linearity so the network can learn complex patterns.
+- Every neuron in one layer is connected to **every neuron in the next layer**.
+- Each connection has a **weight** that determines the strength of the signal.
+- Each neuron has a **bias** that shifts the activation output.
+- An **activation function** is applied to introduce non-linearity so the network can learn complex patterns.
 
 💡 **Key idea:** FCNN is the simplest and most common neural network structure, and it’s the building block for many advanced architectures.
 
 ---
 
-### **Diagram of a Simple Neural Network**
+## 📊 2. Diagram of a Simple Neural Network
 
 ![Simple Neural Network Diagram](https://github.com/Mahfuzar148/Artificial-Intelligence-Lab/blob/main/Assignment1/simple%20neural%20network.png)
 
 ---
 
-## 2️⃣ **How Does It Work? (Step-by-Step)**
+## 🔍 3. How Does It Work? (Step-by-Step)
 
-1. **Input Layer**
-   Takes in feature values (e.g., $x_1, x_2$).
+1. **Input Layer**  
+   Takes in feature values (e.g., \( x_1, x_2 \)).
 
-2. **Weighted Sum**
+2. **Weighted Sum**  
    Each neuron in the next layer calculates:
-
-   $$
+   \[
    z = (w_1 \cdot x_1) + (w_2 \cdot x_2) + b
-   $$
+   \]
+   where \( w \) = weight, \( b \) = bias.
 
-   where $w$ = weight, $b$ = bias.
-
-3. **Activation Function**
+3. **Activation Function**  
    Applies a function like **ReLU**, **Sigmoid**, or **Softmax** to introduce non-linearity.
 
-4. **Hidden Layers**
+4. **Hidden Layers**  
    Process features through multiple transformations to capture patterns.
 
-5. **Output Layer**
+5. **Output Layer**  
    Produces final predictions — e.g., probability (classification) or a number (regression).
 
-6. **Training**
+6. **Training**  
    Uses **backpropagation** + **gradient descent** to adjust weights and biases to minimize error.
 
 ---
 
-## 3️⃣ **When to Use FCNN?**
+## 🎯 4. When to Use FCNN?
 
 ✅ **Good for:**
-
-* Tabular data (structured datasets)
-* Simple pattern recognition
-* Problems where features are not sequential or spatial
-* Small to medium-sized datasets
+- Tabular data (structured datasets)
+- Simple pattern recognition
+- Problems where features are not sequential or spatial
+- Small to medium-sized datasets
 
 ⚠️ **Not ideal for:**
-
-* Image data → Convolutional Neural Networks (CNN) perform better
-* Sequential data → Recurrent Neural Networks (RNN), Transformers are better
-* Very large datasets → May overfit without regularization
-
----
-
-## 4️⃣ **Why FCNN Can Perform Well**
-
-* Learns **complex relationships** between inputs and outputs.
-* Flexible — works with many types of problems.
-* Easy to implement and train for smaller datasets.
-* Fully connected structure ensures **all features are considered**.
+- Image data → Convolutional Neural Networks (CNN) perform better
+- Sequential data → Recurrent Neural Networks (RNN), Transformers are better
+- Very large datasets → May overfit without regularization
 
 ---
 
-## 5️⃣ **Python Implementation with Keras**
+## 🚀 5. Why FCNN Can Perform Well
 
-We’ll build the FCNN as in your diagram:
-
-* **Input layer:** 2 neurons
-* **Hidden layer 1:** 2 neurons (ReLU)
-* **Hidden layer 2:** 3 neurons (ReLU)
-* **Hidden layer 3:** 2 neurons (ReLU)
-* **Output layer:** 1 neuron (Softmax in your code, but Sigmoid is better for binary classification)
+- Learns **complex relationships** between inputs and outputs.
+- Flexible — works with many types of problems.
+- Easy to implement and train for smaller datasets.
+- Fully connected structure ensures **all features are considered**.
 
 ---
 
-### **Code**
+## 💻 6. Python Implementation with Keras
+
+We’ll build the FCNN as in the diagram:
+- **Input layer:** 2 neurons
+- **Hidden layer 1:** 2 neurons (ReLU)
+- **Hidden layer 2:** 3 neurons (ReLU)
+- **Hidden layer 3:** 2 neurons (ReLU)
+- **Output layer:** 1 neuron (Softmax in this example)
 
 ```python
 from tensorflow.keras.layers import Dense, Input
@@ -116,23 +105,22 @@ model = Model(inputs, outputs)
 
 # Show model summary
 model.summary()
-```
+````
 
 ---
 
-### **Model Output Summary (Image)**
+## 📄 7. Model Summary Output
 
-📷 **Model Summary Screenshot:**
-[Model Summary Output](https://github.com/Mahfuzar148/Artificial-Intelligence-Lab/blob/main/Assignment1/simple%20neural%20network%20output.png)
+![Model Summary Output](https://github.com/Mahfuzar148/Artificial-Intelligence-Lab/blob/main/Assignment1/simple%20neural%20network%20output.png)
 
 ---
 
-## 6️⃣ **Code Explanation**
+## 🧮 8. Code Explanation
 
 ### **Layer 1 — Input**
 
 * Shape `(2,)` → accepts 2 features $x_1, x_2$.
-* No parameters yet (just input placeholders).
+* No parameters yet (just placeholders).
 
 ---
 
@@ -143,7 +131,7 @@ h1 = Dense(2, activation='relu')(inputs)
 ```
 
 * **2 neurons**, fully connected to input layer.
-* **Parameters:** $(2 \text{ inputs} \times 2 \text{ neurons}) + 2 \text{ biases} = 6$.
+* **Parameters:** $(2 \times 2) + 2 = 6$.
 
 ---
 
@@ -188,14 +176,38 @@ $$
 
 ---
 
-## 7️⃣ **How This Maps to the Diagram**
+## 🔗 9. Mapping to the Diagram
 
-Your diagram with $x_1, x_2$ → $h_1(2)$ → $h_2(3)$ → $h_3(2)$ → $y$ matches perfectly:
+The structure:
 
-* **Every neuron is connected** to all neurons in the next layer.
-* **w₁–w₁₈** = weights in connections.
+$$
+x_1, x_2 \rightarrow h_1(2) \rightarrow h_2(3) \rightarrow h_3(2) \rightarrow y
+$$
+
+* **w₁–w₁₈** = weights between neurons.
 * **b₁–b₇** = biases in each hidden/output neuron.
+* Fully connected means **every neuron** in one layer connects to **every neuron** in the next layer.
+
+---
+
+## ⚠️ 10. Note About Softmax
+
+If you use `softmax` with only **1 neuron**, the output will always be 1.
+For binary classification, replace:
+
+```python
+outputs = Dense(1, activation='softmax')(h3)
+```
+
+with:
+
+```python
+outputs = Dense(1, activation='sigmoid')(h3)
+```
+
+This outputs probabilities between 0 and 1.
 
 ---
 
 
+```
