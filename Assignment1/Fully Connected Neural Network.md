@@ -129,8 +129,6 @@ model.summary()
 
 ---
 
-Alright — I’ll explain this code in **full detail**, breaking it down line-by-line.
-I’ll cover what each **keyword, function, and parameter** means, **when it’s used**, **common syntax**, and **what exactly it’s doing in your code**.
 
 ---
 
