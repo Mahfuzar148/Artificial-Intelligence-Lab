@@ -24,28 +24,49 @@ A **Fully Connected Neural Network** (also called a **Dense Neural Network**) is
 ## 🔍 3. How Does It Work? (Step-by-Step)
 
 1. **Input Layer**  
-   Takes in feature values (e.g., \( x_1, x_2 \)).
-
-2. **Weighted Sum**  
-   Each neuron in the next layer calculates:
-   \[
-   z = (w_1 \cdot x_1) + (w_2 \cdot x_2) + b
-   \]
-   where \( w \) = weight, \( b \) = bias.
-
-3. **Activation Function**  
-   Applies a function like **ReLU**, **Sigmoid**, or **Softmax** to introduce non-linearity.
-
-4. **Hidden Layers**  
-   Process features through multiple transformations to capture patterns.
-
-5. **Output Layer**  
-   Produces final predictions — e.g., probability (classification) or a number (regression).
-
-6. **Training**  
-   Uses **backpropagation** + **gradient descent** to adjust weights and biases to minimize error.
+   - Takes in the feature values.  
+   - Example: \( (x_1, x_2) \) for two input features.
 
 ---
+
+2. **Weighted Sum**  
+   - Each neuron in the next layer computes:  
+     \[
+     z = (w_1 \cdot x_1) + (w_2 \cdot x_2) + b
+     \]  
+     where:  
+       - \( w \) = weight  
+       - \( b \) = bias
+
+---
+
+3. **Activation Function**  
+   - Applies a non-linear function such as:
+     - **ReLU**: \( f(z) = \max(0, z) \)
+     - **Sigmoid**: \( f(z) = \frac{1}{1 + e^{-z}} \)
+     - **Softmax**: For multi-class probability distribution.
+   - Purpose: Introduces **non-linearity** so the network can learn complex patterns.
+
+---
+
+4. **Hidden Layers**  
+   - Multiple layers of neurons between input and output.
+   - Each layer transforms the data, allowing the network to capture **higher-level features**.
+
+---
+
+5. **Output Layer**  
+   - Produces the final prediction:
+     - Classification → probability score
+     - Regression → numeric output
+
+---
+
+6. **Training**  
+   - The network learns using:
+     - **Backpropagation** → computes gradients for weights/biases.
+     - **Gradient Descent** → updates weights to minimize loss.
+
 
 ## 🎯 4. When to Use FCNN?
 
