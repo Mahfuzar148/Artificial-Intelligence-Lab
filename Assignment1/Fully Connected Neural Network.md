@@ -129,99 +129,191 @@ model.summary()
 
 ---
 
-## 🧮 8. Code Explanation
-
-### **Layer 1 — Input**
-
-* Shape `(2,)` → accepts 2 features $x_1, x_2$.
-* No parameters yet (just placeholders).
+Alright — I’ll explain this code in **full detail**, breaking it down line-by-line.
+I’ll cover what each **keyword, function, and parameter** means, **when it’s used**, **common syntax**, and **what exactly it’s doing in your code**.
 
 ---
 
-### **Layer 2 — Hidden Layer 1**
+## **Code Explanation — Step by Step**
+
+---
+
+### **Import Statements**
+
+```python
+from tensorflow.keras.layers import Dense, Input
+from tensorflow.keras.models import Model
+```
+
+**1. `tensorflow.keras.layers.Dense`**
+
+* **What it is:** A *Dense Layer* (also called a *Fully Connected Layer*) where **each neuron** is connected to **all neurons** in the previous layer.
+* **When to use:**
+
+  * When you want every neuron to see the whole previous layer’s output.
+  * Works well for structured/tabular data, simple neural networks, or the final layers in CNNs.
+* **Common syntax:**
+
+  ```python
+  Dense(units, activation=None, use_bias=True)
+  ```
+
+  * `units`: Number of neurons in the layer.
+  * `activation`: Activation function name (e.g., `"relu"`, `"sigmoid"`, `"softmax"`).
+  * `use_bias`: Whether to add a bias term.
+
+---
+
+**2. `tensorflow.keras.layers.Input`**
+
+* **What it is:** The starting point (placeholder) for your model’s input data.
+* **When to use:**
+
+  * Always in the **Functional API** style models.
+  * Needed to define the **shape** of the incoming data.
+* **Common syntax:**
+
+  ```python
+  Input(shape, name=None)
+  ```
+
+  * `shape`: Tuple of feature dimensions (excluding batch size).
+  * Example: `Input((2,))` means **2 features** as input.
+
+---
+
+**3. `tensorflow.keras.models.Model`**
+
+* **What it is:** A model class in the Keras Functional API that connects **inputs** to **outputs**.
+* **When to use:**
+
+  * When building models with complex topologies (e.g., multiple inputs/outputs).
+  * More flexible than `Sequential`.
+* **Common syntax:**
+
+  ```python
+  Model(inputs=..., outputs=..., name=None)
+  ```
+
+  * `inputs`: Input layer(s).
+  * `outputs`: Output layer(s).
+
+---
+
+### **Defining the Model**
+
+---
+
+#### **Step 1 — Input Layer**
+
+```python
+inputs = Input((2,))
+```
+
+* **Shape:** `(2,)` → means 2 input features: $x_1, x_2$.
+* **What it does in this code:** Sets up the placeholder for your input data so the model knows the shape before training starts.
+
+---
+
+#### **Step 2 — First Hidden Layer**
 
 ```python
 h1 = Dense(2, activation='relu')(inputs)
 ```
 
-* **2 neurons**, fully connected to input layer.
-* **Parameters:** $(2 \times 2) + 2 = 6$.
+* **`Dense(2, activation='relu')`**:
+
+  * 2 neurons in this layer.
+  * Activation function: **ReLU** (`f(z) = max(0, z)`).
+  * Learns **first-level features** from the raw input.
+* **`(inputs)`**:
+
+  * Passes the `inputs` layer’s output to this layer.
+* **Parameters here:** `(2 inputs × 2 neurons) + 2 biases = 6 parameters`.
 
 ---
 
-### **Layer 3 — Hidden Layer 2**
+#### **Step 3 — Second Hidden Layer**
 
 ```python
 h2 = Dense(3, activation='relu')(h1)
 ```
 
-* **3 neurons**, fully connected to H1.
-* **Parameters:** $(2 \times 3) + 3 = 9$.
+* 3 neurons, connected to **all outputs of h1**.
+* ReLU activation again for non-linearity.
+* **Parameters:** `(2 neurons from h1 × 3) + 3 biases = 9 parameters`.
+* **Purpose in code:** Learns more complex combinations of the features from h1.
 
 ---
 
-### **Layer 4 — Hidden Layer 3**
+#### **Step 4 — Third Hidden Layer**
 
 ```python
 h3 = Dense(2, activation='relu')(h2)
 ```
 
-* **2 neurons**, fully connected to H2.
-* **Parameters:** $(3 \times 2) + 2 = 8$.
+* 2 neurons.
+* Fully connected to h2’s 3 outputs.
+* **Parameters:** `(3 × 2) + 2 = 8 parameters`.
+* **Purpose in code:** Extracts refined patterns before sending them to the output layer.
 
 ---
 
-### **Layer 5 — Output Layer**
+#### **Step 5 — Output Layer**
 
 ```python
 outputs = Dense(1, activation='softmax')(h3)
 ```
 
-* **1 neuron** with softmax activation.
-* **Parameters:** $(2 \times 1) + 1 = 3$.
+* **1 neuron** → final prediction output.
+* Activation: **Softmax** (usually for multi-class classification).
+  ⚠️ With **1 neuron**, softmax always outputs `1`. For binary classification, you’d use:
+
+  ```python
+  outputs = Dense(1, activation='sigmoid')(h3)
+  ```
+* **Parameters:** `(2 × 1) + 1 bias = 3 parameters`.
+* **Purpose in code:** Converts last layer output into the final prediction.
 
 ---
 
-### **Total Parameters**
-
-$$
-6 + 9 + 8 + 3 = 26
-$$
-
----
-
-## 🔗 9. Mapping to the Diagram
-
-The structure:
-
-$$
-x_1, x_2 \rightarrow h_1(2) \rightarrow h_2(3) \rightarrow h_3(2) \rightarrow y
-$$
-
-* **w₁–w₁₈** = weights between neurons.
-* **b₁–b₇** = biases in each hidden/output neuron.
-* Fully connected means **every neuron** in one layer connects to **every neuron** in the next layer.
-
----
-
-## ⚠️ 10. Note About Softmax
-
-If you use `softmax` with only **1 neuron**, the output will always be 1.
-For binary classification, replace:
+### **Building the Model**
 
 ```python
-outputs = Dense(1, activation='softmax')(h3)
+model = Model(inputs, outputs)
 ```
 
-with:
-
-```python
-outputs = Dense(1, activation='sigmoid')(h3)
-```
-
-This outputs probabilities between 0 and 1.
+* Links the `inputs` layer to the `outputs` layer.
+* Creates a **trainable computational graph** from start to finish.
 
 ---
+
+### **Displaying the Model Summary**
+
+```python
+model.summary()
+```
+
+* Shows:
+
+  * Layer names & output shapes.
+  * Number of parameters (weights + biases).
+  * Whether layers are trainable.
+
+---
+
+## **Parameter Recap for This Model**
+
+| Layer     | Neurons | Parameters Formula | Parameters |
+| --------- | ------- | ------------------ | ---------- |
+| H1        | 2       | `(2 × 2) + 2`      | 6          |
+| H2        | 3       | `(2 × 3) + 3`      | 9          |
+| H3        | 2       | `(3 × 2) + 2`      | 8          |
+| Out       | 1       | `(2 × 1) + 1`      | 3          |
+| **Total** | —       | —                  | **26**     |
+
+---
+
 
 
 ```
