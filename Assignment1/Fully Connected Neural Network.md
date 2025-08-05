@@ -30,29 +30,30 @@ A **Fully Connected Neural Network** (also called a **Dense Neural Network**) is
 
 2. **Weighted Sum**
    Each neuron in the next layer computes a weighted sum of its inputs, plus a bias term:
+   
    z = (w₁ × x₁) + (w₂ × x₂) + b
    where:
 
    * w = weight
    * b = bias
 
-3. **Activation Function**
+4. **Activation Function**
    A non-linear function is applied to the weighted sum to introduce non-linearity, allowing the network to learn complex patterns. Common activation functions include:
 
    * ReLU: f(z) = max(0, z)
    * Sigmoid: f(z) = 1 / (1 + e^(-z))
    * Softmax: Used for multi-class probability distribution.
 
-4. **Hidden Layers**
+5. **Hidden Layers**
    These are multiple layers of neurons between the input and output layers. Each hidden layer processes and transforms the data further, enabling the network to capture higher-level and more abstract features.
 
-5. **Output Layer**
+6. **Output Layer**
    The final layer produces the model’s prediction:
 
    * For classification: Outputs probability scores.
    * For regression: Outputs a continuous numeric value.
 
-6. **Training**
+7. **Training**
    The learning process uses:
 
    * Backpropagation to calculate the gradients for each weight and bias.
@@ -118,6 +119,8 @@ model = Model(inputs, outputs)
 
 # Show model summary
 model.summary()
+
+```
 
 
 ## 📄 7. Model Summary Output
