@@ -42,43 +42,63 @@ A typical FCNN has:
      * **Sigmoid** → Binary classification
      * **Linear** → Regression
 
+
 ---
 
-## **3. How It Works — Step-by-Step**
+### **3. How It Works — Step-by-Step**
 
-1. **Forward Pass**
+---
 
-   * For each neuron in a layer:
+#### **1. Forward Pass**
 
-     $$
-     z = \sum_{i=1}^{n} w_i \cdot x_i + b
-     $$
-   * Apply the activation function:
+For each neuron in a layer, the **weighted sum** is calculated as:
 
-     $$
-     a = f(z)
-     $$
+$$
+z = \sum_{i=1}^{n} w_i \cdot x_i + b
+$$
 
-     where $f$ can be ReLU, Sigmoid, Softmax, etc.
+Then, the **activation function** is applied:
 
-2. **Loss Calculation**
+$$
+a = f(z)
+$$
 
-   * Compare the predicted output with the actual target using a loss function (e.g., MSE, Cross-Entropy).
+Where:
 
-3. **Backpropagation**
+* $f$ can be **ReLU**, **Sigmoid**, **Softmax**, or another activation function depending on the task.
 
-   * Compute gradients of the loss with respect to each weight and bias.
-   * Use the **chain rule** to propagate the error backwards through the network.
+---
 
-4. **Weight Update**
+#### **2. Loss Calculation**
 
-   * Update weights and biases using an optimization algorithm such as Gradient Descent:
+The predicted output is compared with the actual target value using a **loss function**, such as:
 
-     $$
-     w \leftarrow w - \eta \cdot \frac{\partial L}{\partial w}
-     $$
+* **Mean Squared Error (MSE)** → For regression tasks
+* **Cross-Entropy Loss** → For classification tasks
 
-     where $\eta$ is the learning rate.
+---
+
+#### **3. Backpropagation**
+
+* Compute the **gradients** of the loss with respect to each weight and bias.
+* Use the **chain rule** to propagate the error backward through the network, layer by layer.
+
+---
+
+#### **4. Weight Update**
+
+The weights and biases are updated using an optimization algorithm (e.g., **Gradient Descent**):
+
+$$
+w \leftarrow w - \eta \cdot \frac{\partial L}{\partial w}
+$$
+
+Where:
+
+* $\eta$ is the **learning rate** — it controls how big each update step is.
+* $\frac{\partial L}{\partial w}$ is the **gradient of the loss** with respect to the weight.
+
+---
 
 ---
 
