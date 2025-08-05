@@ -19,53 +19,46 @@ A **Fully Connected Neural Network** (also called a **Dense Neural Network**) is
 
 ![Simple Neural Network Diagram](https://github.com/Mahfuzar148/Artificial-Intelligence-Lab/blob/main/Assignment1/simple%20neural%20network.png)
 
----
-
-## 🔍 3. How Does It Work? (Step-by-Step)
-
-1. **Input Layer**  
-   - Takes in the feature values.  
-   - Example: \( (x_1, x_2) \) for two input features.
 
 ---
 
-2. **Weighted Sum**  
-   - Each neuron in the next layer computes:  
-     \[
-     z = (w_1 \cdot x_1) + (w_2 \cdot x_2) + b
-     \]  
-     where:  
-       - \( w \) = weight  
-       - \( b \) = bias
+🔍 **3. How Does It Work? (Step-by-Step)**
+
+1. **Input Layer**
+   The input layer takes in the feature values from your dataset.
+   Example: (x₁, x₂) for two input features.
+
+2. **Weighted Sum**
+   Each neuron in the next layer computes a weighted sum of its inputs, plus a bias term:
+   z = (w₁ × x₁) + (w₂ × x₂) + b
+   where:
+
+   * w = weight
+   * b = bias
+
+3. **Activation Function**
+   A non-linear function is applied to the weighted sum to introduce non-linearity, allowing the network to learn complex patterns. Common activation functions include:
+
+   * ReLU: f(z) = max(0, z)
+   * Sigmoid: f(z) = 1 / (1 + e^(-z))
+   * Softmax: Used for multi-class probability distribution.
+
+4. **Hidden Layers**
+   These are multiple layers of neurons between the input and output layers. Each hidden layer processes and transforms the data further, enabling the network to capture higher-level and more abstract features.
+
+5. **Output Layer**
+   The final layer produces the model’s prediction:
+
+   * For classification: Outputs probability scores.
+   * For regression: Outputs a continuous numeric value.
+
+6. **Training**
+   The learning process uses:
+
+   * Backpropagation to calculate the gradients for each weight and bias.
+   * Gradient Descent (or a variant) to update the weights in the direction that minimizes the loss function.
 
 ---
-
-3. **Activation Function**  
-   - Applies a non-linear function such as:
-     - **ReLU**: \( f(z) = \max(0, z) \)
-     - **Sigmoid**: \( f(z) = \frac{1}{1 + e^{-z}} \)
-     - **Softmax**: For multi-class probability distribution.
-   - Purpose: Introduces **non-linearity** so the network can learn complex patterns.
-
----
-
-4. **Hidden Layers**  
-   - Multiple layers of neurons between input and output.
-   - Each layer transforms the data, allowing the network to capture **higher-level features**.
-
----
-
-5. **Output Layer**  
-   - Produces the final prediction:
-     - Classification → probability score
-     - Regression → numeric output
-
----
-
-6. **Training**  
-   - The network learns using:
-     - **Backpropagation** → computes gradients for weights/biases.
-     - **Gradient Descent** → updates weights to minimize loss.
 
 
 ## 🎯 4. When to Use FCNN?
