@@ -1,5 +1,4 @@
-
-# 🧠 Fully Connected Neural Network (FCNN)
+# 🧠 Fully Connected Neural Network (FCNN) 
 
 ---
 
@@ -105,9 +104,7 @@ model = Model(inputs, outputs)
 
 # Show model summary
 model.summary()
-````
 
----
 
 ## 📄 7. Model Summary Output
 
