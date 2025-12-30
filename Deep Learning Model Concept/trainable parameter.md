@@ -1,3 +1,5 @@
+
+
 ---
 
 ## 1️⃣ Trainable Parameter কী?
@@ -106,4 +108,5 @@ show_trainable = true
 > *When `show_trainable = true`, only the trainable parameters (weights and biases that are updated during training) of the neural network are displayed.*
 
 ---
+
 
