@@ -206,3 +206,173 @@ for i in range(5):
 
 ---
 
+
+
+---
+
+## 🔹 লাইনটা আবার দেখি
+
+```python
+y_true = np.argmax(y_test, axis=1)
+```
+
+---
+
+## 1️⃣ `y_test` আসলে কী?
+
+তোমার কোডে তুমি লিখেছো:
+
+```python
+y_test = to_categorical(y_test, num_classes)
+```
+
+মানে এখন `y_test` আর integer label না, বরং **one-hot encoded label**।
+
+### Example (MNIST, digit = 3)
+
+```python
+y_test[0] = [0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+```
+
+---
+
+## 2️⃣ One-hot encoding কেন ব্যবহার করা হয়?
+
+কারণ:
+
+* `softmax + categorical_crossentropy`
+* loss function চায় **vector format label**
+
+কিন্তু analysis করার সময়:
+
+* accuracy
+* confusion matrix
+* per-digit accuracy
+
+👉 integer label দরকার
+
+---
+
+## 3️⃣ `np.argmax()` এখানে কী করছে?
+
+### Definition:
+
+> **array-এর সবচেয়ে বড় value-এর index বের করে**
+
+One-hot vector এ:
+
+* শুধু একটাই `1`
+* বাকিগুলো `0`
+
+তাই:
+
+```python
+np.argmax([0, 0, 0, 1, 0, 0, 0, 0, 0, 0])
+```
+
+Output:
+
+```python
+3
+```
+
+---
+
+## 4️⃣ তাহলে `axis=1` কেন?
+
+`y_test` এর shape:
+
+```python
+(num_samples, num_classes)
+```
+
+Example:
+
+```python
+(10000, 10)
+```
+
+এখানে:
+
+* 1 row = 1 sample
+* 10 column = 10 digit
+
+আমরা চাই:
+👉 প্রতিটা row থেকে class বের করতে
+
+তাই:
+
+```python
+axis=1
+```
+
+---
+
+## 5️⃣ পুরো flow একসাথে দেখো
+
+### Before training:
+
+```python
+y_test = [7, 2, 1, 0]
+```
+
+### After `to_categorical`:
+
+```python
+[
+ [0,0,0,0,0,0,0,1,0,0],
+ [0,0,1,0,0,0,0,0,0,0],
+ [0,1,0,0,0,0,0,0,0,0],
+ [1,0,0,0,0,0,0,0,0,0]
+]
+```
+
+### After `argmax`:
+
+```python
+y_true = [7, 2, 1, 0]
+```
+
+👉 আমরা **আবার original label** ফিরে পেলাম।
+
+---
+
+## 6️⃣ কেন `y_pred` আর `y_true` দুইটাই integer করা হয়?
+
+কারণ:
+
+* Compare করতে সহজ
+* Accuracy হিসাব সহজ
+* Confusion matrix বানানো সহজ
+
+```python
+y_pred == y_true
+```
+
+---
+
+## 🔑 এক লাইনে মনে রাখো
+
+> **`np.argmax(y_test, axis=1)` = one-hot label → আসল digit**
+
+---
+
+## ⚠️ Important Note
+
+যদি তুমি `sparse_categorical_crossentropy` ব্যবহার করতে:
+
+```python
+loss='sparse_categorical_crossentropy'
+```
+
+তাহলে:
+
+* `to_categorical` লাগত না
+* `y_test` আগেই integer থাকত
+* `argmax(y_test)` লাগত না
+
+---
+
+
+
+
