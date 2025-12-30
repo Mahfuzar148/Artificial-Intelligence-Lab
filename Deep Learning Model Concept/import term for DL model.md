@@ -7,12 +7,19 @@
 প্রথমে **সব term-এর লিস্ট** 👇
 
 1️⃣ Dataset
+
 2️⃣ Sample
+
 3️⃣ Feature
+
 4️⃣ Label / Target
+
 5️⃣ Model
+
 6️⃣ Parameters
+
 7️⃣ Hyperparameters
+
 8️⃣ Epoch
 9️⃣ Batch
 🔟 Batch Size
