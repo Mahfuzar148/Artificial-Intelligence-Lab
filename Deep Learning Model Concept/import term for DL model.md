@@ -21,20 +21,35 @@
 7️⃣ Hyperparameters
 
 8️⃣ Epoch
+
 9️⃣ Batch
+
 🔟 Batch Size
+
 1️⃣1️⃣ Iteration / Step
+
 1️⃣2️⃣ Loss / Cost
+
 1️⃣3️⃣ Optimizer
+
 1️⃣4️⃣ Learning Rate
+
 1️⃣5️⃣ Forward Propagation
+
 1️⃣6️⃣ Backpropagation
+
 1️⃣7️⃣ Gradient
+
 1️⃣8️⃣ Activation Function
+
 1️⃣9️⃣ Overfitting
+
 2️⃣0️⃣ Underfitting
+
 2️⃣1️⃣ Train / Validation / Test Set
+
 2️⃣2️⃣ Metrics
+
 2️⃣3️⃣ Callback (EarlyStopping ইত্যাদি)
 
 এখন একে একে ব্যাখ্যা করছি 👇
