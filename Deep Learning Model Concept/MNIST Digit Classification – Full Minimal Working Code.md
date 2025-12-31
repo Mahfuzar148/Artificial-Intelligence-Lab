@@ -202,3 +202,209 @@ print("Actual label:", y_test[0])
 
 ---
 
+
+
+---
+
+# 📘 MNIST Digit Classification
+
+## Minimal Parameters + Accuracy/Loss Curve + 10 Image Prediction
+
+---
+
+## 🔹 Full Working Code (Minimal but Complete)
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+from tensorflow.keras.datasets import mnist
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Flatten
+```
+
+---
+
+## 🔹 1. Load Dataset (No parameter needed)
+
+```python
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+```
+
+---
+
+## 🔹 2. Normalize Data (Mandatory preprocessing)
+
+```python
+x_train = x_train / 255.0
+x_test  = x_test / 255.0
+```
+
+---
+
+## 🔹 3. Build Model (Minimal)
+
+```python
+model = Sequential([
+    Flatten(input_shape=(28, 28)),
+    Dense(32, activation='relu'),
+    Dense(10, activation='softmax')
+])
+```
+
+---
+
+## 🔹 4. Compile Model (Minimal required)
+
+```python
+model.compile(
+    optimizer='adam',
+    loss='sparse_categorical_crossentropy',
+    metrics=['accuracy']
+)
+```
+
+---
+
+## 🔹 5. Train Model (fit → returns History object)
+
+```python
+history = model.fit(
+    x_train,
+    y_train,
+    epochs=5
+)
+```
+
+📌 এখানে **history** object পাওয়া গেছে
+এটাই দিয়ে curve আঁকবো
+
+---
+
+## 🔹 6. Plot Accuracy & Loss Curve (from History)
+
+```python
+plt.figure(figsize=(12,4))
+
+# Loss curve
+plt.subplot(1,2,1)
+plt.plot(history.history['loss'])
+plt.title('Training Loss')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+
+# Accuracy curve
+plt.subplot(1,2,2)
+plt.plot(history.history['accuracy'])
+plt.title('Training Accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('Accuracy')
+
+plt.show()
+```
+
+📌 কোনো extra parameter ছাড়াই curve পাওয়া যাচ্ছে
+
+---
+
+## 🔹 7. Evaluate Model (Minimal)
+
+```python
+loss, accuracy = model.evaluate(x_test, y_test)
+
+print("Test Loss:", loss)
+print("Test Accuracy:", accuracy)
+```
+
+---
+
+## 🔹 8. Predict on Test Data (Minimal)
+
+```python
+predictions = model.predict(x_test)
+```
+
+📌 `predictions.shape = (10000, 10)`
+
+---
+
+## 🔹 9. Display 10 Images with Prediction & Probability
+
+```python
+plt.figure(figsize=(12,4))
+
+for i in range(10):
+    plt.subplot(2,5,i+1)
+    plt.imshow(x_test[i], cmap='gray')
+    
+    predicted_class = np.argmax(predictions[i])
+    probability = np.max(predictions[i])
+    
+    plt.title(f"Pred: {predicted_class}\nProb: {probability:.2f}")
+    plt.axis('off')
+
+plt.show()
+```
+
+---
+
+# 🧠 কী কী Minimal Parameter ব্যবহার হয়েছে (Very Important)
+
+## 🔹 model.compile()
+
+| Parameter | কেন দরকার                              |
+| --------- | -------------------------------------- |
+| optimizer | weight update না দিলে training হবে না  |
+| loss      | error calculate না হলে learning হবে না |
+| metrics   | accuracy দেখার জন্য                    |
+
+---
+
+## 🔹 model.fit()
+
+| Parameter | কেন দরকার     |
+| --------- | ------------- |
+| x         | input data    |
+| y         | true labels   |
+| epochs    | training loop |
+
+---
+
+## 🔹 model.evaluate()
+
+| Parameter | কেন দরকার   |
+| --------- | ----------- |
+| x         | test input  |
+| y         | true labels |
+
+---
+
+## 🔹 model.predict()
+
+| Parameter | কেন দরকার        |
+| --------- | ---------------- |
+| x         | prediction input |
+
+---
+
+# ✅ Final Output তুমি কী কী পাবে
+
+✔ Training loss curve
+✔ Training accuracy curve
+✔ Test accuracy
+✔ 10টা digit image
+✔ প্রতিটার predicted digit
+✔ প্রতিটার max probability
+
+সবকিছু **minimal parameters** দিয়েই ✅
+
+---
+
+## 🧪 Exam / Viva Ready Line
+
+> **History object দিয়ে training loss ও accuracy curve পাওয়া যায়,
+> predict() probability দেয়, argmax দিয়ে class বের করা হয়।**
+
+---
+
+
