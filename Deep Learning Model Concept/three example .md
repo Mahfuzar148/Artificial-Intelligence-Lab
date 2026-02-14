@@ -1,5 +1,4 @@
 
-
 * ✅ FCNN for Binary Classification
 * ✅ FCNN for Multi-class (MNIST)
 * ✅ CNN for Image Classification (MNIST)
@@ -313,6 +312,135 @@ plt.show()
 
 ```
 ---
+
+Digit Classification Using Sparse Categorical Crossentropy
+```python
+import matplotlib.pyplot as plt
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.datasets.mnist import load_data
+from tensorflow.keras.layers import Conv2D, Dense, Flatten, Input, MaxPooling2D
+from tensorflow.keras.models import Model
+
+# ===============================
+# Load Data
+# ===============================
+(x_train, y_train), (x_test, y_test) = load_data()
+
+# Normalize
+x_train = x_train / 255.0
+x_test = x_test / 255.0
+
+# Expand dims
+x_train = np.expand_dims(x_train, -1)
+x_test = np.expand_dims(x_test, -1)
+
+# ⚠️ NO one-hot encoding here
+# y_train and y_test remain integers (0-9)
+
+# ===============================
+# Build CNN Model
+# ===============================
+inputs = Input((28, 28, 1))
+
+x = Conv2D(32, (3,3), activation='relu')(inputs)
+x = MaxPooling2D((2,2))(x)
+
+x = Conv2D(64, (3,3), activation='relu')(x)
+x = MaxPooling2D((2,2))(x)
+
+x = Flatten()(x)
+x = Dense(64, activation='relu')(x)
+
+outputs = Dense(10, activation='softmax')(x)
+
+model = Model(inputs, outputs)
+
+# ===============================
+# Compile (Sparse Version)
+# ===============================
+model.compile(
+    optimizer='adam',
+    loss='sparse_categorical_crossentropy',   # 🔥 Changed here
+    metrics=['accuracy']
+)
+
+# ===============================
+# Train
+# ===============================
+history = model.fit(
+    x_train, y_train,     # 🔥 integer labels
+    epochs=5,
+    batch_size=64,
+    validation_split=0.1
+)
+
+# ===============================
+# Evaluate
+# ===============================
+loss, acc = model.evaluate(x_test, y_test)
+print("CNN Test Accuracy:", acc)
+
+# ===============================
+# Predict
+# ===============================
+pred = model.predict(x_test)
+pred_classes = pred.argmax(axis=1)
+
+# 🔥 true_classes directly y_test
+true_classes = y_test
+
+# ===============================
+# Show 10 Test Images with Prediction
+# ===============================
+plt.figure(figsize=(12,6))
+
+for i in range(10):
+    plt.subplot(2,5,i+1)
+    plt.imshow(x_test[i].reshape(28,28), cmap='gray')
+    
+    predicted = pred_classes[i]
+    actual = true_classes[i]
+    
+    if predicted == actual:
+        color = 'green'
+    else:
+        color = 'red'
+    
+    plt.title(f"P:{predicted} / T:{actual}", color=color)
+    plt.axis('off')
+
+plt.suptitle(f"Test Accuracy: {acc:.4f}", fontsize=14)
+plt.show()
+
+# ===============================
+# Plot Accuracy Curve
+# ===============================
+plt.figure(figsize=(8,5))
+plt.plot(history.history['accuracy'], label='Train Accuracy')
+plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
+plt.title("Accuracy Curve")
+plt.xlabel("Epoch")
+plt.ylabel("Accuracy")
+plt.legend()
+plt.show()
+
+# ===============================
+# Plot Loss Curve
+# ===============================
+plt.figure(figsize=(8,5))
+plt.plot(history.history['loss'], label='Train Loss')
+plt.plot(history.history['val_loss'], label='Validation Loss')
+plt.title("Loss Curve")
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.legend()
+plt.show()
+
+```
+
+
+
 
 # 🎯 Concept Summary
 
