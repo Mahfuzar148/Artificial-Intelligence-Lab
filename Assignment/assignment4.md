@@ -2,9 +2,12 @@
 
 build an FCFNN based classifier according to your preferences about the 
 number of hidden layers and neurons in the hidden layers. 
+
 ● training and testing your FCFNN based classifier using the: 
 ○ Fashion MNIST dataset. 
-○ MNIST English dataset. 
+
+○ MNIST English dataset.
+
 ○ CIFAR-10 dataset.
 
 ---
